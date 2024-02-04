@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "web_configs",
+  "info": {
+    "singularName": "web-config",
+    "pluralName": "web-configs",
+    "displayName": "webConfig"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "default": "Dhruni Realty"
+    }
+  }
+}

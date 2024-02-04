@@ -1,0 +1,113 @@
+{
+  "kind": "collectionType",
+  "collectionName": "properties",
+  "info": {
+    "singularName": "property",
+    "pluralName": "properties",
+    "displayName": "Properties",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "biginteger",
+      "required": true
+    },
+    "location": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "imageGallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ]
+    },
+    "areaNumber": {
+      "type": "string"
+    },
+    "size": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "agent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "properties"
+    },
+    "BHK": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "default": 3
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Coming Soon",
+        "Delivered",
+        "Launched",
+        "Nearing Possession",
+        "New Launch",
+        "New Launched",
+        "Ready to Move",
+        "Resale",
+        "Under Construction"
+      ],
+      "required": true
+    },
+    "amenities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::amenity.amenity"
+    },
+    "property_city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::property-city.property-city",
+      "inversedBy": "properties"
+    },
+    "property_type": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::property-type.property-type"
+    },
+    "builtYear": {
+      "type": "integer"
+    }
+  }
+}
