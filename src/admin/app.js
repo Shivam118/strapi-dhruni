@@ -6,8 +6,6 @@ const config = {
   head: { favicon: authLogo },
   menu: { menuLogo: authLogo },
   tutorials: false,
-  notifications: { releases: false },
-  serveAdminPanel: false,
   translations: {
     en: {
       "app.components.LeftMenu.navbrand.title": "Dhruni Realty",
@@ -20,9 +18,7 @@ const config = {
   },
 };
 
-const bootstrap = (app) => {
-  console.log(app);
-};
+const bootstrap = () => {};
 
 export default {
   config,
