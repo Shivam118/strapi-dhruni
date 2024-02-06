@@ -1,15 +1,16 @@
 import authLogo from "./extensions/dhruniIcon.png";
 
 const config = {
-  auth: { logo: authLogo },
+  auth: { authLogo },
   locales: ["en"],
   head: { favicon: authLogo },
-  menu: { logo: authLogo },
+  menu: { menuLogo: authLogo },
   tutorials: false,
+  notifications: { releases: false },
+  serveAdminPanel: false,
   translations: {
     en: {
-      "Auth.form.email.label": "test",
-      "app.components.LeftMenu.navbrand.title": "Dhruni Realty 2",
+      "app.components.LeftMenu.navbrand.title": "Dhruni Realty",
       "app.components.LeftMenu.navbrand.workplace": "Development",
       "Auth.form.welcome.title": "Welcome to Dhruni Realty",
       "Auth.form.welcome.subtitle": "Login to your account",
