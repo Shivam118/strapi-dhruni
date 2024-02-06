@@ -33,7 +33,7 @@
       ]
     },
     "content": {
-      "type": "blocks"
+      "type": "richtext"
     }
   }
 }

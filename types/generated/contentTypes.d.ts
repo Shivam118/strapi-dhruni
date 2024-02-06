@@ -871,7 +871,7 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   attributes: {
     carousel: Attribute.Media & Attribute.Required;
     builderLogo: Attribute.Media;
-    content: Attribute.Blocks;
+    content: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
