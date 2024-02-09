@@ -4,7 +4,8 @@
   "info": {
     "singularName": "property-city",
     "pluralName": "property-cities",
-    "displayName": "PropertyCity"
+    "displayName": "PropertyCity",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,11 +15,21 @@
     "city": {
       "type": "string"
     },
+    "property_towns": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::property-town.property-town",
+      "mappedBy": "property_city"
+    },
     "properties": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::property.property",
       "mappedBy": "property_city"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "city"
     }
   }
 }

@@ -65,12 +65,6 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "properties": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::property.property",
-      "mappedBy": "agent"
-    },
     "contact": {
       "type": "string",
       "required": true,
@@ -83,6 +77,16 @@
     },
     "about": {
       "type": "text"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "username"
+    },
+    "properties": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::property.property",
+      "mappedBy": "builder"
     }
   }
 }

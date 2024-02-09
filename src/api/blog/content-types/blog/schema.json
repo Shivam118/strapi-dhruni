@@ -12,14 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "content": {
-      "type": "customField",
-      "options": {
-        "output": "HTML",
-        "preset": "standard"
-      },
-      "customField": "plugin::ckeditor.CKEditor"
-    },
     "title": {
       "type": "string"
     },
@@ -46,6 +38,10 @@
     },
     "authorEmail": {
       "type": "email",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
       "required": true
     }
   }

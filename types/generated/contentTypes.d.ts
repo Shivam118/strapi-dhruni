@@ -763,14 +763,15 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    contact: Attribute.String & Attribute.Required & Attribute.Unique;
+    address: Attribute.String;
+    about: Attribute.Text;
+    slug: Attribute.UID<'plugin::users-permissions.user', 'username'>;
     properties: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::property.property'
     >;
-    contact: Attribute.String & Attribute.Required & Attribute.Unique;
-    address: Attribute.String;
-    about: Attribute.Text;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -833,20 +834,13 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    content: Attribute.RichText &
-      Attribute.CustomField<
-        'plugin::ckeditor.CKEditor',
-        {
-          output: 'HTML';
-          preset: 'standard';
-        }
-      >;
     title: Attribute.String;
     slug: Attribute.UID;
     image: Attribute.Media;
     authorName: Attribute.String & Attribute.Required;
     caption: Attribute.String;
     authorEmail: Attribute.Email & Attribute.Required;
+    content: Attribute.RichText & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -870,7 +864,7 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
   };
   attributes: {
     carousel: Attribute.Media & Attribute.Required;
-    builderLogo: Attribute.Media;
+    builderLogo: Attribute.Media & Attribute.Required;
     content: Attribute.RichText;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -907,13 +901,13 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
     location: Attribute.Text & Attribute.Required;
     image: Attribute.Media & Attribute.Required;
     slug: Attribute.UID<'api::property.property', 'title'> & Attribute.Required;
-    imageGallery: Attribute.Media;
+    imageGallery: Attribute.Media & Attribute.Required;
     areaNumber: Attribute.String;
     size: Attribute.String & Attribute.Required;
     description: Attribute.RichText;
     latitude: Attribute.Float;
     longitude: Attribute.Float;
-    agent: Attribute.Relation<
+    builder: Attribute.Relation<
       'api::property.property',
       'manyToOne',
       'plugin::users-permissions.user'
@@ -933,7 +927,6 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
         'Delivered',
         'Launched',
         'Nearing Possession',
-        'New Launch',
         'New Launched',
         'Ready to Move',
         'Resale',
@@ -946,10 +939,10 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
       'oneToMany',
       'api::amenity.amenity'
     >;
-    property_city: Attribute.Relation<
+    property_town: Attribute.Relation<
       'api::property.property',
       'manyToOne',
-      'api::property-city.property-city'
+      'api::property-town.property-town'
     >;
     property_type: Attribute.Relation<
       'api::property.property',
@@ -957,6 +950,13 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
       'api::property-type.property-type'
     >;
     builtYear: Attribute.Integer;
+    property_city: Attribute.Relation<
+      'api::property.property',
+      'manyToOne',
+      'api::property-city.property-city'
+    >;
+    exclusive: Attribute.Boolean & Attribute.DefaultTo<false>;
+    SEO: Attribute.Component<'seo.seo', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -981,17 +981,24 @@ export interface ApiPropertyCityPropertyCity extends Schema.CollectionType {
     singularName: 'property-city';
     pluralName: 'property-cities';
     displayName: 'PropertyCity';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     city: Attribute.String;
+    property_towns: Attribute.Relation<
+      'api::property-city.property-city',
+      'oneToMany',
+      'api::property-town.property-town'
+    >;
     properties: Attribute.Relation<
       'api::property-city.property-city',
       'oneToMany',
       'api::property.property'
     >;
+    slug: Attribute.UID<'api::property-city.property-city', 'city'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1010,18 +1017,63 @@ export interface ApiPropertyCityPropertyCity extends Schema.CollectionType {
   };
 }
 
+export interface ApiPropertyTownPropertyTown extends Schema.CollectionType {
+  collectionName: 'property_towns';
+  info: {
+    singularName: 'property-town';
+    pluralName: 'property-towns';
+    displayName: 'PropertyTown';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    town: Attribute.String;
+    slug: Attribute.UID<'api::property-town.property-town', 'town'> &
+      Attribute.Required;
+    property_city: Attribute.Relation<
+      'api::property-town.property-town',
+      'manyToOne',
+      'api::property-city.property-city'
+    >;
+    properties: Attribute.Relation<
+      'api::property-town.property-town',
+      'oneToMany',
+      'api::property.property'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::property-town.property-town',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::property-town.property-town',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPropertyTypePropertyType extends Schema.CollectionType {
   collectionName: 'property_types';
   info: {
     singularName: 'property-type';
     pluralName: 'property-types';
     displayName: 'PropertyType';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     type: Attribute.String;
+    slug: Attribute.UID<'api::property-type.property-type', 'type'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1046,14 +1098,18 @@ export interface ApiWebConfigWebConfig extends Schema.SingleType {
     singularName: 'web-config';
     pluralName: 'web-configs';
     displayName: 'webConfig';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    title: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'Dhruni Realty'>;
+    title: Attribute.String & Attribute.Required;
+    linkedin: Attribute.String &
+      Attribute.DefaultTo<'https://www.linkedin.com/'>;
+    twitter: Attribute.String & Attribute.DefaultTo<'https://www.x.com/'>;
+    instagram: Attribute.String &
+      Attribute.DefaultTo<'https://www.instagram.com/'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1095,6 +1151,7 @@ declare module '@strapi/types' {
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::property.property': ApiPropertyProperty;
       'api::property-city.property-city': ApiPropertyCityPropertyCity;
+      'api::property-town.property-town': ApiPropertyTownPropertyTown;
       'api::property-type.property-type': ApiPropertyTypePropertyType;
       'api::web-config.web-config': ApiWebConfigWebConfig;
     }

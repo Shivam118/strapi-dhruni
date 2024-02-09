@@ -41,7 +41,7 @@
     "imageGallery": {
       "type": "media",
       "multiple": true,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "videos"
@@ -63,7 +63,7 @@
     "longitude": {
       "type": "float"
     },
-    "agent": {
+    "builder": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
@@ -82,7 +82,6 @@
         "Delivered",
         "Launched",
         "Nearing Possession",
-        "New Launch",
         "New Launched",
         "Ready to Move",
         "Resale",
@@ -95,10 +94,10 @@
       "relation": "oneToMany",
       "target": "api::amenity.amenity"
     },
-    "property_city": {
+    "property_town": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "api::property-city.property-city",
+      "target": "api::property-town.property-town",
       "inversedBy": "properties"
     },
     "property_type": {
@@ -108,6 +107,23 @@
     },
     "builtYear": {
       "type": "integer"
+    },
+    "property_city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::property-city.property-city",
+      "inversedBy": "properties"
+    },
+    "exclusive": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "SEO": {
+      "displayName": "SEO",
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
     }
   }
 }
