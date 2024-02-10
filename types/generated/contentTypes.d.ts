@@ -772,6 +772,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToMany',
       'api::property.property'
     >;
+    image: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -835,7 +836,7 @@ export interface ApiBlogBlog extends Schema.CollectionType {
   };
   attributes: {
     title: Attribute.String;
-    slug: Attribute.UID;
+    slug: Attribute.UID<'api::blog.blog', 'title'>;
     image: Attribute.Media;
     authorName: Attribute.String & Attribute.Required;
     caption: Attribute.String;

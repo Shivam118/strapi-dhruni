@@ -87,6 +87,14 @@
       "relation": "oneToMany",
       "target": "api::property.property",
       "mappedBy": "builder"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images"
+      ]
     }
   }
 }
