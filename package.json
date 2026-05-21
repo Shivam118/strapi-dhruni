@@ -16,6 +16,7 @@
     "@strapi/plugin-users-permissions": "4.19.0",
     "@strapi/provider-upload-aws-s3": "^4.20.1",
     "@strapi/strapi": "4.19.0",
+    "docx": "^9.6.1",
     "pg": "^8.8.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -30,7 +31,7 @@
     "uuid": "df1d8b11-634e-4229-a310-0dbda1c7a084"
   },
   "engines": {
-    "node": ">=18.17.0",
+    "node": ">=18 <=20",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
