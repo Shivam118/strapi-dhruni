@@ -27,6 +27,30 @@
     "instagram": {
       "type": "string",
       "default": "https://www.instagram.com/"
+    },
+    "facebook": {
+      "type": "string",
+      "default": "https://www.facebook.com/"
+    },
+    "AboutPageSEO": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
+    },
+    "AboutPageSEOMeta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
+    },
+    "youtube": {
+      "type": "string",
+      "default": "https://www.youtube.com/"
+    },
+    "whatsapp": {
+      "type": "string"
+    },
+    "aboutPage": {
+      "type": "blocks"
     }
   }
 }

@@ -842,6 +842,25 @@ export interface ApiBlogBlog extends Schema.CollectionType {
     caption: Attribute.String;
     authorEmail: Attribute.Email & Attribute.Required;
     content: Attribute.RichText & Attribute.Required;
+    metaTitle: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    metaDescription: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    tags: Attribute.JSON;
+    category: Attribute.Enumeration<
+      [
+        'Market Insights',
+        "Buyer's Guide",
+        'Destinations',
+        'Investment',
+        'Lifestyle'
+      ]
+    >;
+    ogImage: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -867,6 +886,15 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
     carousel: Attribute.Media & Attribute.Required;
     builderLogo: Attribute.Media & Attribute.Required;
     content: Attribute.RichText;
+    SEO: Attribute.Component<'seo.seo', true>;
+    metaTitle: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    metaDescription: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -878,6 +906,37 @@ export interface ApiHomePageHomePage extends Schema.SingleType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::home-page.home-page',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiNewsLetterNewsLetter extends Schema.CollectionType {
+  collectionName: 'news_letters';
+  info: {
+    singularName: 'news-letter';
+    pluralName: 'news-letters';
+    displayName: 'NewsLetter';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    email: Attribute.String;
+    subscribed: Attribute.Boolean & Attribute.DefaultTo<false>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::news-letter.news-letter',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::news-letter.news-letter',
       'oneToOne',
       'admin::user'
     > &
@@ -958,6 +1017,15 @@ export interface ApiPropertyProperty extends Schema.CollectionType {
     >;
     exclusive: Attribute.Boolean & Attribute.DefaultTo<false>;
     SEO: Attribute.Component<'seo.seo', true>;
+    metaDescription: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    meta: Attribute.Component<'seo.seo', true>;
+    metaTitle: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1000,6 +1068,19 @@ export interface ApiPropertyCityPropertyCity extends Schema.CollectionType {
       'api::property.property'
     >;
     slug: Attribute.UID<'api::property-city.property-city', 'city'>;
+    metaTitle: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    metaDescription: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    heroImage: Attribute.Media;
+    seo: Attribute.Component<'seo.seo', true>;
+    meta: Attribute.Component<'seo.seo', true>;
+    latitude: Attribute.Float & Attribute.DefaultTo<0>;
+    longitude: Attribute.Float & Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1043,6 +1124,18 @@ export interface ApiPropertyTownPropertyTown extends Schema.CollectionType {
       'oneToMany',
       'api::property.property'
     >;
+    metaTitle: Attribute.String &
+      Attribute.SetMinMaxLength<{
+        maxLength: 60;
+      }>;
+    metaDescription: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 160;
+      }>;
+    seo: Attribute.Component<'seo.seo', true>;
+    meta: Attribute.Component<'seo.seo', true>;
+    latitude: Attribute.Float & Attribute.DefaultTo<0>;
+    longitude: Attribute.Float & Attribute.DefaultTo<0>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1093,6 +1186,71 @@ export interface ApiPropertyTypePropertyType extends Schema.CollectionType {
   };
 }
 
+export interface ApiScriptScript extends Schema.CollectionType {
+  collectionName: 'scripts';
+  info: {
+    singularName: 'script';
+    pluralName: 'scripts';
+    displayName: 'script';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    scriptUrl: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::script.script',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::script.script',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiTestimonialTestimonial extends Schema.CollectionType {
+  collectionName: 'testimonials';
+  info: {
+    singularName: 'testimonial';
+    pluralName: 'testimonials';
+    displayName: 'testimonial';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    heading: Attribute.String;
+    avatar: Attribute.Media;
+    content: Attribute.RichText;
+    name: Attribute.String;
+    builder: Attribute.String;
+    role: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::testimonial.testimonial',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::testimonial.testimonial',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiWebConfigWebConfig extends Schema.SingleType {
   collectionName: 'web_configs';
   info: {
@@ -1111,6 +1269,13 @@ export interface ApiWebConfigWebConfig extends Schema.SingleType {
     twitter: Attribute.String & Attribute.DefaultTo<'https://www.x.com/'>;
     instagram: Attribute.String &
       Attribute.DefaultTo<'https://www.instagram.com/'>;
+    facebook: Attribute.String &
+      Attribute.DefaultTo<'https://www.facebook.com/'>;
+    AboutPageSEO: Attribute.Component<'seo.seo', true>;
+    AboutPageSEOMeta: Attribute.Component<'seo.seo', true>;
+    youtube: Attribute.String & Attribute.DefaultTo<'https://www.youtube.com/'>;
+    whatsapp: Attribute.String;
+    aboutPage: Attribute.Blocks;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1150,10 +1315,13 @@ declare module '@strapi/types' {
       'api::amenity.amenity': ApiAmenityAmenity;
       'api::blog.blog': ApiBlogBlog;
       'api::home-page.home-page': ApiHomePageHomePage;
+      'api::news-letter.news-letter': ApiNewsLetterNewsLetter;
       'api::property.property': ApiPropertyProperty;
       'api::property-city.property-city': ApiPropertyCityPropertyCity;
       'api::property-town.property-town': ApiPropertyTownPropertyTown;
       'api::property-type.property-type': ApiPropertyTypePropertyType;
+      'api::script.script': ApiScriptScript;
+      'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'api::web-config.web-config': ApiWebConfigWebConfig;
     }
   }

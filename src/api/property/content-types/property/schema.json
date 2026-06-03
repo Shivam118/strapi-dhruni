@@ -124,6 +124,19 @@
       "type": "component",
       "repeatable": true,
       "component": "seo.seo"
+    },
+    "metaDescription": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "meta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
+    },
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 60
     }
   }
 }

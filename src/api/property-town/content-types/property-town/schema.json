@@ -31,6 +31,32 @@
       "relation": "oneToMany",
       "target": "api::property.property",
       "mappedBy": "property_town"
+    },
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "metaDescription": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
+    },
+    "meta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "seo.seo"
+    },
+    "latitude": {
+      "type": "float",
+      "default": 0
+    },
+    "longitude": {
+      "type": "float",
+      "default": 0
     }
   }
 }

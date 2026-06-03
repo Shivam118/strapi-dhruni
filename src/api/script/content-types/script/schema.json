@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scripts",
+  "info": {
+    "singularName": "script",
+    "pluralName": "scripts",
+    "displayName": "script"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "scriptUrl": {
+      "type": "string"
+    }
+  }
+}

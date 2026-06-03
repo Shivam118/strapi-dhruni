@@ -44,6 +44,37 @@
     "content": {
       "type": "richtext",
       "required": true
+    },
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 60
+    },
+    "metaDescription": {
+      "type": "text",
+      "maxLength": 160
+    },
+    "tags": {
+      "type": "json"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "Market Insights",
+        "Buyer's Guide",
+        "Destinations",
+        "Investment",
+        "Lifestyle"
+      ]
+    },
+    "ogImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
